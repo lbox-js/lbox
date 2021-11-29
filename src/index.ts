@@ -1,14 +1,13 @@
 import Address from "./lib/Address";
-
+import Crypto from "./lib/Crypto";
 class libox {
-  constructor() {
-    this.Address = new Address();
-  }
   async init() {
     await this.Address.init();
   }
 
-  Address: Address;
+  Address: Address = new Address();
+
+  Crypto: Crypto = new Crypto();
 }
 
 export = libox;
