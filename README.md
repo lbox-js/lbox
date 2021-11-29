@@ -1,8 +1,10 @@
-# Lbox <small style="font-size: small;">alpin</small>
+# Lbox (alpha)
 
-<div style="text-align:center;margin:20px;">
+<div align="center">
   <img src="logo.svg" height="120" align="center" />
 </div>
+
+<br />
 
 > library use libauth with bitbox syntax
 
