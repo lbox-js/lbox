@@ -1,0 +1,32 @@
+{
+  "name": "lbox",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/types.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prettier": "npx prettier --write .",
+    "test": "tsc && jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/salemkode/lbox.git"
+  },
+  "keywords": [
+    "libauth",
+    "bitbox",
+    "bchjs"
+  ],
+  "author": "Salem Mohammed Shamakh",
+  "license": "MIT",
+  "dependencies": {
+    "@bitauth/libauth": "^1.18.1"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.10",
+    "jest": "^27.3.1",
+    "prettier": "2.2.1",
+    "typescript": "^4.5.2"
+  }
+}
