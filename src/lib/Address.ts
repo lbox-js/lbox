@@ -1,5 +1,7 @@
 // import libauth lib to use it
 import * as libauth from "@bitauth/libauth";
+// import crypto
+import { createHash } from "crypto";
 
 class Address {
   // # WebAssembly Hashing Functions
@@ -46,10 +48,21 @@ class Address {
   };
 
   async init() {
-    this.instantiateSha256 = await libauth.instantiateSha256();
     this.instantiateBIP32Crypto = await libauth.instantiateBIP32Crypto();
   }
 
+  constructor() {
+    function hash(type: string): Function {
+      return function (input: Uint8Array) {
+        return new Uint8Array([
+          ...createHash(type).update(Buffer.from(input)).digest(),
+        ]);
+      };
+    }
+    this.instantiateSha256 = {
+      hash: hash("sha256"),
+    };
+  }
   //
   detectAddressFormat(address: string): string {
     if (this.isCashAddress(address)) {

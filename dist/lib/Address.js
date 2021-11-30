@@ -21,6 +21,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // import libauth lib to use it
 const libauth = __importStar(require("@bitauth/libauth"));
+// import crypto
+const crypto_1 = require("crypto");
 class Address {
     constructor() {
         // hash code of
@@ -37,6 +39,16 @@ class Address {
             p2pkh: 0,
             p2sh: 1,
         };
+        function hash(type) {
+            return function (input) {
+                return new Uint8Array([
+                    ...(0, crypto_1.createHash)(type).update(Buffer.from(input)).digest(),
+                ]);
+            };
+        }
+        this.instantiateSha256 = {
+            hash: hash("sha256"),
+        };
     }
     // get cash address prefix
     getCashPrefix(Address) {
@@ -51,7 +63,6 @@ class Address {
         }
     }
     async init() {
-        this.instantiateSha256 = await libauth.instantiateSha256();
         this.instantiateBIP32Crypto = await libauth.instantiateBIP32Crypto();
     }
     //
@@ -124,6 +135,19 @@ class Address {
             throw new Error(deriveHD);
         let type = "P2SH";
         return libauth.encodeCashAddress(network === "testnet" ? "bchtest" : "bitcoincash", type, libauth.deriveHdPublicNodeIdentifier(crypto, deriveHD));
+    }
+    //
+    fromXPriv(xpub, path = "0'/0") {
+        const crypto = this.instantiateBIP32Crypto;
+        const decoded = libauth.decodeHdPrivateKey(crypto, xpub);
+        if (typeof decoded != "object")
+            throw new Error(decoded);
+        const { node, network } = decoded;
+        const deriveHD = libauth.deriveHdPath(crypto, node, "m/" + path);
+        if (typeof deriveHD != "object")
+            throw new Error(deriveHD);
+        let type = "P2SH";
+        return libauth.encodeCashAddress(network === "testnet" ? "bchtest" : "bitcoincash", type, libauth.deriveHdPrivateNodeIdentifier(crypto, deriveHD));
     }
     //
     hash160ToCash(hex = "", network = 0x00) {

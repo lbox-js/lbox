@@ -7,11 +7,13 @@ declare class Address {
     private hexAddressType;
     private cashAddressTypes;
     init(): Promise<void>;
+    constructor();
     detectAddressFormat(address: string): string;
     detectAddressNetwork(address: string): "mainnet" | "testnet" | "regtest";
     detectAddressType(address: string): string;
     fromOutputScript(scriptPubKey: Buffer, network?: string): string | libauth.AddressContents;
     fromXPub(xpub: string, path?: string): string;
+    fromXPriv(xpub: string, path?: string): string;
     hash160ToCash(hex?: string, network?: number): string;
     hash160ToLegacy(hex?: string, network?: number): string;
     isCashAddress(address: string): boolean;
