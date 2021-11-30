@@ -1,7 +1,5 @@
 # Address
 
-### <b style="color:#f44336">importent note function in Address this after libox.init() </b>
-
 ### `toLegacyAddress`
 
 Converting cashaddr to legacy address format
@@ -516,6 +514,12 @@ lbox.Address.detectAddressType("mqc1tmwY2368LLGktnePzEyPAsgADxbksi");
 // p2pkh
 ```
 
+<br />
+
+> ### <b>importent note before use fromXPub function init lbox with [lbox.init()](../README.md#init-async-function) </b>
+
+<br />
+
 ### `fromXPub`
 
 Generates an address for an extended public key (xpub)
@@ -532,32 +536,43 @@ changeAddress `string`: cashaddr encoded change address
 #### Examples
 
 ```js
-// generate 5 mainnet external change addresses for xpub6DTNmB7gWa8RtQAfmy8wSDikM5mky4fhsnqQd9AqoCaLcekqNgRZW5JCSXwXkLDkABHTD1qx7kqrbGzT6xBGfAvCJSj2rwvKWP8eZBR2EVA
-let xpub =
-  "xpub6DTNmB7gWa8RtQAfmy8wSDikM5mky4fhsnqQd9AqoCaLcekqNgRZW5JCSXwXkLDkABHTD1qx7kqrbGzT6xBGfAvCJSj2rwvKWP8eZBR2EVA";
-for (let i = 0; i <= 4; i++) {
-  console.log(lbox.Address.fromXPub(xpub, "0/" + i));
-}
-// bitcoincash:qptnmya5wkly7xf97wm5ak23yqdsz3l2cyj7k9vyyh
-// bitcoincash:qrr2suh9yjsrkl2qp3p967uhfg6u0r6xxsn9h5vuvr
-// bitcoincash:qpkfg4kck99wksyss6nvaqtafeahfnyrpsj0ed372t
-// bitcoincash:qppgmuuwy07g0x39sx2z0x2u8e34tvfdxvy0c2jvx7
-// bitcoincash:qryj8x4s7vfsc864jm0xaak9qfe8qgk245y9ska57l
+const lbox = require("lbox");
 
-// generate 5 testnet external change addresses for tpubDCrnMSKwDMAbxg82yqDt97peMvftCXk3EfBb9WgZh27mPbHGkysU3TW7qX5AwydmnVQfaGeNhUR6okQ3dS5AJTP9gEP7jk2Wcj6Xntc6gNh
-let xpub =
-  "tpubDCrnMSKwDMAbxg82yqDt97peMvftCXk3EfBb9WgZh27mPbHGkysU3TW7qX5AwydmnVQfaGeNhUR6okQ3dS5AJTP9gEP7jk2Wcj6Xntc6gNh";
-for (let i = 0; i <= 4; i++) {
-  console.log(lbox.Address.fromXPub(xpub, "0/" + i));
-}
-// bchtest:qrth8470sc9scek9u0jj2d0349t62gxzdstw2jukl8
-// bchtest:qpm56zc5re0nhms96r7p985aajthp0vxvg6e4ux3kc
-// bchtest:qqtu3tf6yyd73ejhk3a2ylqynpl3mzzhwuzt299jfd
-// bchtest:qzd7dvlnfukggjqsf5ju0qqwwltakfumjsck33js6m
-// bchtest:qq322ataqeas4n0pdn4gz2sdereh5ae43ylk4qdvus
+async () => {
+  await lbox.init();
+  // generate 5 mainnet external change addresses for xpub6DTNmB7gWa8RtQAfmy8wSDikM5mky4fhsnqQd9AqoCaLcekqNgRZW5JCSXwXkLDkABHTD1qx7kqrbGzT6xBGfAvCJSj2rwvKWP8eZBR2EVA
+  let xpub =
+    "xpub6DTNmB7gWa8RtQAfmy8wSDikM5mky4fhsnqQd9AqoCaLcekqNgRZW5JCSXwXkLDkABHTD1qx7kqrbGzT6xBGfAvCJSj2rwvKWP8eZBR2EVA";
+  for (let i = 0; i <= 4; i++) {
+    console.log(lbox.Address.fromXPub(xpub, "0/" + i));
+  }
+  // bitcoincash:qptnmya5wkly7xf97wm5ak23yqdsz3l2cyj7k9vyyh
+  // bitcoincash:qrr2suh9yjsrkl2qp3p967uhfg6u0r6xxsn9h5vuvr
+  // bitcoincash:qpkfg4kck99wksyss6nvaqtafeahfnyrpsj0ed372t
+  // bitcoincash:qppgmuuwy07g0x39sx2z0x2u8e34tvfdxvy0c2jvx7
+  // bitcoincash:qryj8x4s7vfsc864jm0xaak9qfe8qgk245y9ska57l
+
+  // generate 5 testnet external change addresses for tpubDCrnMSKwDMAbxg82yqDt97peMvftCXk3EfBb9WgZh27mPbHGkysU3TW7qX5AwydmnVQfaGeNhUR6okQ3dS5AJTP9gEP7jk2Wcj6Xntc6gNh
+  let xpub =
+    "tpubDCrnMSKwDMAbxg82yqDt97peMvftCXk3EfBb9WgZh27mPbHGkysU3TW7qX5AwydmnVQfaGeNhUR6okQ3dS5AJTP9gEP7jk2Wcj6Xntc6gNh";
+  for (let i = 0; i <= 4; i++) {
+    console.log(lbox.Address.fromXPub(xpub, "0/" + i));
+  }
+  // bchtest:qrth8470sc9scek9u0jj2d0349t62gxzdstw2jukl8
+  // bchtest:qpm56zc5re0nhms96r7p985aajthp0vxvg6e4ux3kc
+  // bchtest:qqtu3tf6yyd73ejhk3a2ylqynpl3mzzhwuzt299jfd
+  // bchtest:qzd7dvlnfukggjqsf5ju0qqwwltakfumjsck33js6m
+  // bchtest:qq322ataqeas4n0pdn4gz2sdereh5ae43ylk4qdvus
+};
 ```
 
-### `fromXPriv` <small>soon</small>
+<br />
+
+> ### <b>importent note before use fromXPub function init lbox with [lbox.init()](../README.md#init-async-function) </b>
+
+<br />
+
+### `fromXPriv`
 
 Generates an address for an extended private key (xpriv)
 
@@ -573,29 +588,34 @@ changeAddress `string`: cashaddr encoded change address
 #### Examples
 
 ```js
-// generate 5 mainnet addresses for xprvA2WwD9mk1Qd3rMjQ4ZRHvCWCj47jbXjY9Nf7npNRBmGUJngpRAvJzNpNgt7h2dDQ5huG7yFwYfz4PFJDPzkqfvBNPHnaio4yAbbUuv3EBnL
-let xpriv =
-  "xprvA2WwD9mk1Qd3rMjQ4ZRHvCWCj47jbXjY9Nf7npNRBmGUJngpRAvJzNpNgt7h2dDQ5huG7yFwYfz4PFJDPzkqfvBNPHnaio4yAbbUuv3EBnL";
-for (let i = 0; i <= 4; i++) {
-  console.log(lbox.Address.fromXPriv(xpriv, "0'/" + i));
-}
-// bitcoincash:qpmcs78tpfvfphhedcczydaddu5wmcx0xvrwf3fjph
-// bitcoincash:qppfr7fu4dzxguen85rjwa6ress3sl839qyudganxj
-// bitcoincash:qpuaaaseccxyjj04d2l3qv4vd2wxj6gtwvnfe3ckh8
-// bitcoincash:qp46n7a53jvkarp9ps595fjv8czfd045v5zk4xhspm
-// bitcoincash:qprjdqx7cnrac4uemp2fza08k875wsgzfcapk76n9n
+const lbox = require("lbox");
 
-// generate 5 testnet addresses for tprv8jBszV65QgT8TAxvj8Go5r8C3BXwq3mYUvaEfEnsfjkx6PRuQYG4W8Bpc4HM2zbiT9S384shi2Zrr6qxXD6nUySxuvztP9o25hLuMcDvMYD
-let xpriv =
-  "tprv8jBszV65QgT8TAxvj8Go5r8C3BXwq3mYUvaEfEnsfjkx6PRuQYG4W8Bpc4HM2zbiT9S384shi2Zrr6qxXD6nUySxuvztP9o25hLuMcDvMYD";
-for (let i = 0; i <= 4; i++) {
-  console.log(lbox.Address.fromXPub(xpriv, "0'/" + i));
-}
-// bchtest:qpmcs78tpfvfphhedcczydaddu5wmcx0xv8udkt9xt
-// bchtest:qppfr7fu4dzxguen85rjwa6ress3sl839qqwf0lypw
-// bchtest:qpuaaaseccxyjj04d2l3qv4vd2wxj6gtwvhmak6psm
-// bchtest:qp46n7a53jvkarp9ps595fjv8czfd045v5xy3p48x8
-// bchtest:qprjdqx7cnrac4uemp2fza08k875wsgzfcenjecyz0
+(async () => {
+  await lbox.init();
+  // generate 5 mainnet addresses for xprvA2WwD9mk1Qd3rMjQ4ZRHvCWCj47jbXjY9Nf7npNRBmGUJngpRAvJzNpNgt7h2dDQ5huG7yFwYfz4PFJDPzkqfvBNPHnaio4yAbbUuv3EBnL
+  let xpriv =
+    "xprvA2WwD9mk1Qd3rMjQ4ZRHvCWCj47jbXjY9Nf7npNRBmGUJngpRAvJzNpNgt7h2dDQ5huG7yFwYfz4PFJDPzkqfvBNPHnaio4yAbbUuv3EBnL";
+  for (let i = 0; i <= 4; i++) {
+    console.log(lbox.Address.fromXPriv(xpriv, "0'/" + i));
+  }
+  // bitcoincash:qpmcs78tpfvfphhedcczydaddu5wmcx0xvrwf3fjph
+  // bitcoincash:qppfr7fu4dzxguen85rjwa6ress3sl839qyudganxj
+  // bitcoincash:qpuaaaseccxyjj04d2l3qv4vd2wxj6gtwvnfe3ckh8
+  // bitcoincash:qp46n7a53jvkarp9ps595fjv8czfd045v5zk4xhspm
+  // bitcoincash:qprjdqx7cnrac4uemp2fza08k875wsgzfcapk76n9n
+
+  // generate 5 testnet addresses for tprv8jBszV65QgT8TAxvj8Go5r8C3BXwq3mYUvaEfEnsfjkx6PRuQYG4W8Bpc4HM2zbiT9S384shi2Zrr6qxXD6nUySxuvztP9o25hLuMcDvMYD
+  let xpriv =
+    "tprv8jBszV65QgT8TAxvj8Go5r8C3BXwq3mYUvaEfEnsfjkx6PRuQYG4W8Bpc4HM2zbiT9S384shi2Zrr6qxXD6nUySxuvztP9o25hLuMcDvMYD";
+  for (let i = 0; i <= 4; i++) {
+    console.log(lbox.Address.fromXPub(xpriv, "0'/" + i));
+  }
+  // bchtest:qpmcs78tpfvfphhedcczydaddu5wmcx0xv8udkt9xt
+  // bchtest:qppfr7fu4dzxguen85rjwa6ress3sl839qqwf0lypw
+  // bchtest:qpuaaaseccxyjj04d2l3qv4vd2wxj6gtwvhmak6psm
+  // bchtest:qp46n7a53jvkarp9ps595fjv8czfd045v5xy3p48x8
+  // bchtest:qprjdqx7cnrac4uemp2fza08k875wsgzfcenjecyz0
+})();
 ```
 
 ### `fromOutputScript`

@@ -36,7 +36,7 @@ const lbox = require("lbox");
 
 - this library is not complete and we are developing it
 - now we just support lbox.Address
-- before using library you need to make compelled asm code in libauth with `init()`
+- before using `lbox.Address.fromXPub` or `lbox.Address.fromXPriv` you need to make compelled asm code in libauth with `init()`
 
 ## API
 
@@ -45,16 +45,15 @@ const lbox = require("lbox");
 <br>
 
 ```js
-const lbox = require("lbox");
+const LBOX = require("lbox");
+let lbox = new lbox();
 
-(async () => {
-  await lbox.init();
-  // you can use all library function now
-  let address = bchjs.Address.isMainnetAddress(
-    "bitcoincash:pp7ushdxf5we8mcpaa3wqgsuqt639cu59ur5xu5fug"
-  );
-  console.log(address);
-})();
+let address = lbox.Address.isMainnetAddress(
+  "bitcoincash:pp7ushdxf5we8mcpaa3wqgsuqt639cu59ur5xu5fug"
+);
+
+console.log(address);
+// true
 ```
 
 ### [`Address()`](docs/Address.md)
