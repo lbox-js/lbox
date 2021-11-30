@@ -121,6 +121,29 @@ describe("Generates an address for an extended public key (fromXPub)", () => {
 });
 
 //
+describe("Generates an address for an extended private key (fromXPriv)", () => {
+  let fun = (...arg) => libox.Address.fromXPriv(...arg);
+  it("mainnet", () => {
+    // extended private key
+    let xpriv =
+      "xprvA2WwD9mk1Qd3rMjQ4ZRHvCWCj47jbXjY9Nf7npNRBmGUJngpRAvJzNpNgt7h2dDQ5huG7yFwYfz4PFJDPzkqfvBNPHnaio4yAbbUuv3EBnL";
+    // test value
+    expect(fun(xpriv)).toBe(
+      "bitcoincash:qpmcs78tpfvfphhedcczydaddu5wmcx0xvrwf3fjph"
+    );
+  });
+  it("testnet", () => {
+    // extended public key
+    let xpriv =
+      "tprv8jBszV65QgT8TAxvj8Go5r8C3BXwq3mYUvaEfEnsfjkx6PRuQYG4W8Bpc4HM2zbiT9S384shi2Zrr6qxXD6nUySxuvztP9o25hLuMcDvMYD";
+    // test value
+    expect(fun(xpriv, "0'/4")).toBe(
+      "bchtest:qprjdqx7cnrac4uemp2fza08k875wsgzfcenjecyz0"
+    );
+  });
+});
+
+//
 describe("Convert hash160 to cash address (hash160ToCash)", () => {
   let fun = (...arg) => libox.Address.hash160ToCash(...arg);
   it("mainnet", () => {

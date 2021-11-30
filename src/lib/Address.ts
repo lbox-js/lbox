@@ -134,6 +134,24 @@ class Address {
   }
 
   //
+  fromXPriv(xpub: string, path: string = "0'/0") {
+    const crypto = this.instantiateBIP32Crypto;
+    const decoded = libauth.decodeHdPrivateKey(crypto, xpub);
+    if (typeof decoded != "object") throw new Error(decoded);
+    const { node, network } = decoded;
+
+    const deriveHD = libauth.deriveHdPath(crypto, node, "m/" + path);
+    if (typeof deriveHD != "object") throw new Error(deriveHD);
+
+    let type: any = "P2SH";
+    return libauth.encodeCashAddress(
+      network === "testnet" ? "bchtest" : "bitcoincash",
+      type,
+      libauth.deriveHdPrivateNodeIdentifier(crypto, deriveHD)
+    );
+  }
+
+  //
   hash160ToCash(hex: string = "", network: number = 0x00) {
     let type: string = libauth.Base58AddressFormatVersion[network] || "p2pkh";
     let prefix = "bitcoincash";
