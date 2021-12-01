@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/salemkode/lbox.git"
+    "url": "https://github.com/lbox-js/lbox.git"
   },
   "keywords": [
     "libauth",
