@@ -38,22 +38,4 @@ const lbox = require("lbox");
 - now we just support lbox.Address
 - before using `lbox.Address.fromXPub` or `lbox.Address.fromXPriv` you need to make compelled asm code in libauth with `init()`
 
-## API
-
-### `init()` (async function)
-
-<br>
-
-```js
-const LBOX = require("lbox");
-let lbox = new lbox();
-
-let address = lbox.Address.isMainnetAddress(
-  "bitcoincash:pp7ushdxf5we8mcpaa3wqgsuqt639cu59ur5xu5fug"
-);
-
-console.log(address);
-// true
-```
-
-### [`Address()`](docs/Address.md)
+## [`Docs`](https://lbox-js.github.io)
