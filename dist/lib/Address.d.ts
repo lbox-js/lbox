@@ -7,7 +7,6 @@ declare class Address {
     private hexAddressType;
     private cashAddressTypes;
     init(): Promise<void>;
-    constructor();
     detectAddressFormat(address: string): string;
     detectAddressNetwork(address: string): "mainnet" | "testnet" | "regtest";
     detectAddressType(address: string): string;

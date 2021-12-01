@@ -3,9 +3,21 @@ import * as libauth from "@bitauth/libauth";
 // import crypto
 import { createHash } from "crypto";
 
+function hash(type: string): (input: Uint8Array) => Uint8Array {
+  return function (input: Uint8Array) {
+    return new Uint8Array([
+      ...createHash(type).update(Buffer.from(input)).digest(),
+    ]);
+  };
+}
+
 class Address {
   // # WebAssembly Hashing Functions
-  private instantiateSha256: any;
+  private instantiateSha256: {
+    hash: (input: Uint8Array) => Uint8Array;
+  } = {
+    hash: hash("sha256"),
+  };
 
   private instantiateBIP32Crypto: any;
 
@@ -51,18 +63,6 @@ class Address {
     this.instantiateBIP32Crypto = await libauth.instantiateBIP32Crypto();
   }
 
-  constructor() {
-    function hash(type: string): Function {
-      return function (input: Uint8Array) {
-        return new Uint8Array([
-          ...createHash(type).update(Buffer.from(input)).digest(),
-        ]);
-      };
-    }
-    this.instantiateSha256 = {
-      hash: hash("sha256"),
-    };
-  }
   //
   detectAddressFormat(address: string): string {
     if (this.isCashAddress(address)) {
@@ -138,10 +138,9 @@ class Address {
     const deriveHD = libauth.deriveHdPath(crypto, node, "M/" + path);
     if (typeof deriveHD != "object") throw new Error(deriveHD);
 
-    let type: any = "P2SH";
     return libauth.encodeCashAddress(
       network === "testnet" ? "bchtest" : "bitcoincash",
-      type,
+      0,
       libauth.deriveHdPublicNodeIdentifier(crypto, deriveHD)
     );
   }
@@ -156,10 +155,9 @@ class Address {
     const deriveHD = libauth.deriveHdPath(crypto, node, "m/" + path);
     if (typeof deriveHD != "object") throw new Error(deriveHD);
 
-    let type: any = "P2SH";
     return libauth.encodeCashAddress(
       network === "testnet" ? "bchtest" : "bitcoincash",
-      type,
+      0,
       libauth.deriveHdPrivateNodeIdentifier(crypto, deriveHD)
     );
   }
@@ -271,9 +269,6 @@ class Address {
       return cashAddress.split(":")[1];
     } else {
       if (address.split(":").length == 2) {
-        /*let prefix = this.getCashPrefix.bind(this)(address);
-        if (address.split(":").length == 1) address = prefix + ":" + address;
-        if (prefix) return address;*/
         let prefix = this.getCashPrefix.bind(this)(address);
         if (prefix) return address;
         return address.split(":")[1];

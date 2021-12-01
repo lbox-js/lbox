@@ -23,8 +23,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const libauth = __importStar(require("@bitauth/libauth"));
 // import crypto
 const crypto_1 = require("crypto");
+function hash(type) {
+    return function (input) {
+        return new Uint8Array([
+            ...(0, crypto_1.createHash)(type).update(Buffer.from(input)).digest(),
+        ]);
+    };
+}
 class Address {
     constructor() {
+        // # WebAssembly Hashing Functions
+        this.instantiateSha256 = {
+            hash: hash("sha256"),
+        };
         // hash code of
         this.hexAddressType = {
             0x00: "p2pkh",
@@ -38,16 +49,6 @@ class Address {
         this.cashAddressTypes = {
             p2pkh: 0,
             p2sh: 1,
-        };
-        function hash(type) {
-            return function (input) {
-                return new Uint8Array([
-                    ...(0, crypto_1.createHash)(type).update(Buffer.from(input)).digest(),
-                ]);
-            };
-        }
-        this.instantiateSha256 = {
-            hash: hash("sha256"),
         };
     }
     // get cash address prefix
@@ -133,8 +134,7 @@ class Address {
         const deriveHD = libauth.deriveHdPath(crypto, node, "M/" + path);
         if (typeof deriveHD != "object")
             throw new Error(deriveHD);
-        let type = "P2SH";
-        return libauth.encodeCashAddress(network === "testnet" ? "bchtest" : "bitcoincash", type, libauth.deriveHdPublicNodeIdentifier(crypto, deriveHD));
+        return libauth.encodeCashAddress(network === "testnet" ? "bchtest" : "bitcoincash", 0, libauth.deriveHdPublicNodeIdentifier(crypto, deriveHD));
     }
     //
     fromXPriv(xpub, path = "0'/0") {
@@ -146,8 +146,7 @@ class Address {
         const deriveHD = libauth.deriveHdPath(crypto, node, "m/" + path);
         if (typeof deriveHD != "object")
             throw new Error(deriveHD);
-        let type = "P2SH";
-        return libauth.encodeCashAddress(network === "testnet" ? "bchtest" : "bitcoincash", type, libauth.deriveHdPrivateNodeIdentifier(crypto, deriveHD));
+        return libauth.encodeCashAddress(network === "testnet" ? "bchtest" : "bitcoincash", 0, libauth.deriveHdPrivateNodeIdentifier(crypto, deriveHD));
     }
     //
     hash160ToCash(hex = "", network = 0x00) {
@@ -235,9 +234,6 @@ class Address {
         }
         else {
             if (address.split(":").length == 2) {
-                /*let prefix = this.getCashPrefix.bind(this)(address);
-                if (address.split(":").length == 1) address = prefix + ":" + address;
-                if (prefix) return address;*/
                 let prefix = this.getCashPrefix.bind(this)(address);
                 if (prefix)
                     return address;
