@@ -1,6 +1,6 @@
 {
   "name": "lbox",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/types.d.ts",
@@ -30,6 +30,6 @@
     "typescript": "^4.5.2"
   },
   "publishConfig": {
-    "tag": "v0.0.1-latest"
+    "tag": "v0.0.2-latest"
   }
 }
